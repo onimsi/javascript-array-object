@@ -4,6 +4,8 @@ const students = localStorage.getItem('students') ?
 let editMode = false
 let indexToEdit = undefined
 
+document.getElementById("btn").addEventListener("click" ,submitForm)
+
 
 function submitForm() {
     const name = document.getElementById('name').value
@@ -36,9 +38,15 @@ function editStudent(i) {
 }
 
 
+function deleteStudent(index) {
+  students.splice(index, 1);
+  localStorage.setItem('students', JSON.stringify(students));
+  displayData(students);
+}
+
+
 function reset() {
     editMode = false
-
     document.getElementById('name').value = ''
     document.getElementById('phone').value = ''
     document.getElementById('village').value = ''
@@ -53,22 +61,17 @@ function displayData(data) {
             ${item.phone} - 
             ${item.village} <br />
             <button type="button" onclick="editStudent(${index})">Edit</button>
+            <button type="button" onclick="deleteStudent(${index})">Delete</button>
     </p>`
     })
     el += '</div>'
     document.getElementById('data').innerHTML = el
 }
 
-displayData(students)
+// displayData(students)
 
 
 
-// let resultsArr = [];
-// for(let i = 0; i < 10; i ++){
-//  let result = addTwoNumbers(i, 2*i);
-//  resultsArr.push(result);
-// }
-// console.log(resultsArr);
 
 
 
